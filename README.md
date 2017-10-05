@@ -23,19 +23,19 @@ Or install it yourself as:
 
 Add the following directive to your Javascript manifest file:
 
-    //= require intlTelInput
+    //= require uniq_phone_input
 
 Coffeescript flavor:
 
-    #= require intlTelInput
+    #= require uniq_phone_input
 
 If you need to initialize the plugin with the `utilsScript` (enable formatting/validation), add one more line:
 
-    //= require libphonenumber/utils
+    //= require phone_utils
 
 Add the following directive to your Stylesheet manifest file:
     
-    @import "intlTelInput";
+    @import "uniq_phone_input";
 
 Initialize the plugin when needed. Example:
 
@@ -43,10 +43,8 @@ Initialize the plugin when needed. Example:
 $("#id_of_your_input").intlTelInput({
     formatOnInit: true,
     separateDialCode: true,
-    utilsScript: "assets/libphonenumber/utils.js"
-});
-```
-More options for [initializing the plugin](https://github.com/jackocnr/intl-tel-input#options). You can ignore the `utilsScript` option if you have already required the `libphonenumber/utils` as stated above.
+    utilsScript: uniq_phone_utils.js
+});uniq_phone_utils.jse options for [initializing the plugin](https://github.com/jackocnr/intl-tel-input#options). You can ignore the `utilsScript` option if you have already required the `libphonenumber/utils` as stated above.
 
 ## Versioning
 

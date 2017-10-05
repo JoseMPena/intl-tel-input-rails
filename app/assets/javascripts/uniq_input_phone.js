@@ -1,6 +1,6 @@
 /*
  * International Telephone Input v11.0.14
- * https://github.com/jackocnr/intl-tel-input.git
+ * https://github.com/jackocnr/phone_intl_tel_input.git
  * Licensed under the MIT license
  */
 
@@ -94,7 +94,7 @@
             this.isMobile = /Android.+Mobile|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             if (this.isMobile) {
                 // trigger the mobile dropdown css
-                $("body").addClass("iti-mobile");
+                $("body").addClass("phone_iti_mobile");
                 // on mobile, we want a full screen dropdown, so we must append it to the body
                 if (!this.options.dropdownContainer) {
                     this.options.dropdownContainer = "body";
@@ -190,30 +190,30 @@
             // prevent autocomplete as there's no safe, cross-browser event we can react to, so it can easily put the plugin in an inconsistent state e.g. the wrong flag selected for the autocompleted number, which on submit could mean the wrong number is saved (esp in nationalMode)
             this.telInput.attr("autocomplete", "off");
             // containers (mostly for positioning)
-            var parentClass = "intl-tel-input";
+            var parentClass = "phone_intl_tel_input";
             if (this.options.allowDropdown) {
-                parentClass += " allow-dropdown";
+                parentClass += " phone_allow_dropdown";
             }
             if (this.options.separateDialCode) {
-                parentClass += " separate-dial-code";
+                parentClass += " phone_separate_dial_code";
             }
             this.telInput.wrap($("<div>", {
                 "class": parentClass
             }));
             this.flagsContainer = $("<div>", {
-                "class": "flag-container"
+                "class": "phone_flag_container"
             }).insertBefore(this.telInput);
             // currently selected flag (displayed to left of input)
             var selectedFlag = $("<div>", {
-                "class": "selected-flag"
+                "class": "phone_selected_flag"
             });
             selectedFlag.appendTo(this.flagsContainer);
             this.selectedFlagInner = $("<div>", {
-                "class": "iti-flag"
+                "class": "phone_iti_flag"
             }).appendTo(selectedFlag);
             if (this.options.separateDialCode) {
                 this.selectedDialCode = $("<div>", {
-                    "class": "selected-dial-code"
+                    "class": "phone_selected_dial_code"
                 }).appendTo(selectedFlag);
             }
             if (this.options.allowDropdown) {
@@ -221,25 +221,25 @@
                 selectedFlag.attr("tabindex", "0");
                 // CSS triangle
                 $("<div>", {
-                    "class": "iti-arrow"
+                    "class": "phone_iti_arrow"
                 }).appendTo(selectedFlag);
-                // country dropdown: preferred countries, then divider, then all countries
+                // country dropdown: preferred countries, then phone_divider, then all countries
                 this.countryList = $("<ul>", {
-                    "class": "country-list hide"
+                    "class": "phone_country_list hide"
                 });
                 if (this.preferredCountries.length) {
                     this._appendListItems(this.preferredCountries, "preferred");
                     $("<li>", {
-                        "class": "divider"
+                        "class": "phone_divider"
                     }).appendTo(this.countryList);
                 }
                 this._appendListItems(this.countries, "");
                 // this is useful in lots of places
-                this.countryListItems = this.countryList.children(".country");
+                this.countryListItems = this.countryList.children(".phone_country");
                 // create dropdownContainer markup
                 if (this.options.dropdownContainer) {
                     this.dropdown = $("<div>", {
-                        "class": "intl-tel-input iti-container"
+                        "class": "phone_intl_tel_input phone_iti_container"
                     }).append(this.countryList);
                 } else {
                     this.countryList.appendTo(this.flagsContainer);
@@ -258,12 +258,12 @@
             for (var i = 0; i < countries.length; i++) {
                 var c = countries[i];
                 // open the list item
-                tmp += "<li class='country " + className + "' data-dial-code='" + c.dialCode + "' data-country-code='" + c.iso2 + "'>";
+                tmp += "<li class='phone_country " + className + "' data-dial-code='" + c.dialCode + "' data-country-code='" + c.iso2 + "'>";
                 // add the flag
-                tmp += "<div class='flag-box'><div class='iti-flag " + c.iso2 + "'></div></div>";
+                tmp += "<div class='phone_flag_box'><div class='phone_iti_flag " + c.iso2 + "'></div></div>";
                 // and the country name and dial code
-                tmp += "<span class='country-name'>" + c.name + "</span>";
-                tmp += "<span class='dial-code'>+" + c.dialCode + "</span>";
+                tmp += "<span class='phone_country_name'>" + c.name + "</span>";
+                tmp += "<span class='phone_dial_code'>+" + c.dialCode + "</span>";
                 // close the list item
                 tmp += "</li>";
             }
@@ -315,7 +315,7 @@
         // initialise the dropdown listeners
         _initDropdownListeners: function () {
             var that = this;
-            // hack for input nested inside label: clicking the selected-flag to open the dropdown would then automatically trigger a 2nd click on the input which would close it again
+            // hack for input nested inside label: clicking the phone_selected_flag to open the dropdown would then automatically trigger a 2nd click on the input which would close it again
             var label = this.telInput.closest("label");
             if (label.length) {
                 label.on("click" + this.ns, function (e) {
@@ -395,7 +395,7 @@
                         // TODO: this should just be the current instances
                         // UPDATE: use setTimeout in case their geoIpLookup function calls this callback straight away (e.g. if they have already done the geo ip lookup somewhere else). Using setTimeout means that the current thread of execution will finish before executing this, which allows the plugin to finish initialising.
                         setTimeout(function () {
-                            $(".intl-tel-input input").intlTelInput("handleAutoCountry");
+                            $(".phone_intl_tel_input input").intlTelInput("handleAutoCountry");
                         });
                     });
                 }
@@ -497,7 +497,7 @@
             // bind all the dropdown-related listeners: mouseover, click, click-off, keydown
             this._bindDropdownListeners();
             // update the arrow
-            this.selectedFlagInner.children(".iti-arrow").addClass("up");
+            this.selectedFlagInner.children(".phone_iti_arrow").addClass("up");
         },
         // decide where to position dropdown (depends on position within viewport, and scroll)
         _setDropdownPosition: function () {
@@ -534,11 +534,11 @@
             var that = this;
             // when mouse over a list item, just highlight that one
             // we add the class "highlight", so if they hit "enter" we know which one to select
-            this.countryList.on("mouseover" + this.ns, ".country", function (e) {
+            this.countryList.on("mouseover" + this.ns, ".phone_country", function (e) {
                 that._highlightListItem($(this));
             });
             // listen for country selection
-            this.countryList.on("click" + this.ns, ".country", function (e) {
+            this.countryList.on("click" + this.ns, ".phone_country", function (e) {
                 that._selectListItem($(this));
             });
             // click off to close
@@ -589,8 +589,8 @@
             var current = this.countryList.children(".highlight").first();
             var next = key == keys.UP ? current.prev() : current.next();
             if (next.length) {
-                // skip the divider
-                if (next.hasClass("divider")) {
+                // skip the phone_divider
+                if (next.hasClass("phone_divider")) {
                     next = key == keys.UP ? next.prev() : next.next();
                 }
                 this._highlightListItem(next);
@@ -714,7 +714,7 @@
             if (this.selectedCountryData.iso2) {
                 this.defaultCountry = this.selectedCountryData.iso2;
             }
-            this.selectedFlagInner.attr("class", "iti-flag " + countryCode);
+            this.selectedFlagInner.attr("class", "phone_iti_flag " + countryCode);
             // update the selected country's title attribute
             var title = countryCode ? this.selectedCountryData.name + ": +" + this.selectedCountryData.dialCode : "Unknown";
             this.selectedFlagInner.parent().attr("title", title);
@@ -734,7 +734,7 @@
             // update the active list item
             this.countryListItems.removeClass("active");
             if (countryCode) {
-                this.countryListItems.find(".iti-flag." + countryCode).first().closest(".country").addClass("active");
+                this.countryListItems.find(".phone_iti_flag." + countryCode).first().closest(".phone_country").addClass("active");
             }
             // return if the flag has changed or not
             return prevCountry.iso2 !== countryCode;
@@ -773,7 +773,7 @@
         _closeDropdown: function () {
             this.countryList.addClass("hide");
             // update the arrow
-            this.selectedFlagInner.children(".iti-arrow").removeClass("up");
+            this.selectedFlagInner.children(".phone_iti_arrow").removeClass("up");
             // unbind key events
             $(document).off(this.ns);
             // unbind click-off-to-close
@@ -1086,7 +1086,7 @@
                 url: path,
                 complete: function () {
                     // tell all instances that the utils request is complete
-                    $(".intl-tel-input input").intlTelInput("handleUtils");
+                    $(".phone_intl_tel_input input").intlTelInput("handleUtils");
                 },
                 dataType: "script",
                 cache: true
