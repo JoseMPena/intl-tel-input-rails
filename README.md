@@ -43,10 +43,10 @@ Initialize the plugin when needed. Example:
 $("#id_of_your_input").intlTelInput({
     formatOnInit: true,
     separateDialCode: true,
-    utilsScript: "assets/libphonenumber/utils.js"
+    utilsScript: phone_utils.js
 });
 ```
-More options for [initializing the plugin](https://github.com/jackocnr/intl-tel-input#options). You can ignore the `utilsScript` option if you have already required the `libphonenumber/utils` as stated above.
+phone_utils.jsions for [initializing the plugin](https://github.com/jackocnr/intl-tel-input#options). You can ignore the `utilsScript` option if you have already required the `libphonenumber/utils` as stated above.
 
 ## Versioning
 
