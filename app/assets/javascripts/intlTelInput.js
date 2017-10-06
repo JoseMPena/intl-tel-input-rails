@@ -1126,14 +1126,3 @@
         };
     }
 });
-
-$(function() {
-    $('form').submit(function () {
-        var national_number_fields = $(this).find('.phone_national_number');
-        $.each(national_number_fields, function (i, national_field) {
-            national_field = $(national_field);
-            var international_number_field = national_field.parent().siblings('.international_phone_number');
-            international_number_field.val(national_field.intlTelInput('getNumber'));
-        });
-    });
-});
